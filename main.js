@@ -15,12 +15,10 @@ class Field {
         this._endGameMsg;
     }
 
-    static generateField(height, width) {
+    static generateField(height, width, percentHoles) {
         let field = [...Array(width)].map(e => Array(height));
-        let startPointRow;
-        let startPointCol;
-        let hatRow;
-        let hatCol;
+        let totalSpots = height * width;
+        let totalHoles = Math.floor(totalSpots * (percentHoles/100));
 
         for (let row = 0; row < height; row++) {
             for (let col = 0; col < width; col++) {
@@ -28,6 +26,34 @@ class Field {
             }
         }
 
+        let startPointRow = Math.floor(Math.random()*width);
+        let startPointCol = Math.floor(Math.random()*height);
+        field[startPointRow][startPointCol] = '*';
+
+        let hatRow = Math.floor(Math.random()*width);
+        let hatCol = Math.floor(Math.random()*height);
+        while (field[hatRow][hatCol] === '*') {
+            hatRow = Math.floor(Math.random()*width);
+            hatCol = Math.floor(Math.random()*height);
+        }
+        field[hatRow][hatCol] = '^';
+
+        console.log(totalHoles);
+
+        for (let i = 0; i < totalHoles; i++) {
+            let holeRow = Math.floor(Math.random()*width);
+            let holeCol = Math.floor(Math.random()*height);
+
+            console.log(field[holeRow][holeCol]);
+
+            while (field[holeRow][holeCol] !== '░') {
+                holeRow = Math.floor(Math.random()*width);
+                holeCol = Math.floor(Math.random()*height);
+            }
+
+            field[holeRow][holeCol] = 'O';
+        }
+        
         return field;
     }
 
@@ -139,8 +165,7 @@ const myField = new Field([
     ['░', '^', '░'],
 ]);
 
-//myField.startGame();
 
-let testField = Field.generateField(5,5);
-const myField2 = new Field(testField);
-myField2.print();
+const randomField = Field.generateField(5, 5, 20);
+const randomeFieldGame = new Field(randomField);
+randomeFieldGame.startGame();
