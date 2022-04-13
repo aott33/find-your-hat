@@ -9,8 +9,7 @@
 ## Plan
 
 - Print instructions for user
-
-- Keep implementing the following until user wins by finding their hat; loses by landing on (and falling in) a hole; or attempts to move “outside” the field.
+- Keep implementing the following until user wins by finding their hat; loses by landing on (and falling in) a hole; or attempts to move “outside” the field:
     - Prompt user for input to indicate which direction they would like to move
     - Print result of current field with tiles they visited marked with '*'
 
